@@ -7,26 +7,37 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Map data = {};
+
   @override
   Widget build(BuildContext context) {
-    Map data = ModalRoute.of(context).settings.arguments;
+    data = data.isEmpty ? ModalRoute.of(context).settings.arguments : data;
+    print(data);
 
     return SafeArea(
       child: Scaffold(
         body: Container(
+          padding: EdgeInsets.fromLTRB(20, 140, 20, 0),
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/${data['isDay']}'),
-              fit: BoxFit.cover,
-            )
-          ),
+              image: DecorationImage(
+            image: AssetImage('assets/${data['isDay']}'),
+            fit: BoxFit.cover,
+          )),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 FlatButton.icon(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/choose-location');
+                  onPressed: () async {
+                    dynamic rs = await Navigator.pushNamed(context, '/choose-location');
+                    setState(() {
+                      data = {
+                        'location': rs['location'],
+                        'flag': rs['flag'],
+                        'time': rs['time'],
+                        'isDay': rs['isDay'],
+                      };
+                    });
                   },
                   icon: Icon(
                     Icons.location_on_outlined,
@@ -36,16 +47,19 @@ class _HomeState extends State<Home> {
                     'Choose Location',
                     style: TextStyle(
                       color: Colors.white,
+                      fontSize: 16,
                     ),
                   ),
                 ),
+                SizedBox(height: 15),
                 Text(
                   data['location'],
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 32,
                     color: Colors.white,
                   ),
                 ),
+                SizedBox(height: 10),
                 Text(
                   data['time'],
                   style: TextStyle(
