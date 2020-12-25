@@ -7,6 +7,7 @@ class WorldTime {
   String flag; // flag image
   String time; // hour:min
   String location; // location
+  String isDay;
 
   WorldTime({this.url, this.location, this.flag});
 
@@ -18,5 +19,6 @@ class WorldTime {
 
     DateTime now = DateTime.parse(utcDateTime).add(Duration(hours: utcOffset));
     time = DateFormat.jm().format(now).toString();
+    isDay = now.hour > 6 && now.hour < 20 ? "day.png" : "night.png";
   }
 }

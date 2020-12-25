@@ -15,6 +15,7 @@ class _LoadingState extends State<Loading> {
       'location': initWorldTime.location,
       'flag': initWorldTime.flag,
       'time': initWorldTime.time,
+      'isDay': initWorldTime.isDay,
     });
   }
 
