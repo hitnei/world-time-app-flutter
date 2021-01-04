@@ -12,7 +12,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     data = data.isEmpty ? ModalRoute.of(context).settings.arguments : data;
-    print(data);
 
     return SafeArea(
       child: Scaffold(
@@ -40,7 +39,7 @@ class _HomeState extends State<Home> {
                     });
                   },
                   icon: Icon(
-                    Icons.location_on_outlined,
+                    Icons.not_listed_location,
                     color: Colors.white,
                   ),
                   label: Text(
